@@ -49,6 +49,12 @@ public class BibliotecaRepository {
                 .toList();
     }
 
+    public List<Livro> findByDisponivel(boolean disponivel) {
+        return livros.stream()
+                .filter(livro -> livro.getDisponivel() != null  && livro.getDisponivel() == disponivel)
+                .toList();
+    }
+
     public void deleteById(Long id) {
         livros.removeIf(livro -> livro.getId().equals(id));
     }

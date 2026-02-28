@@ -39,6 +39,13 @@ A aplicação iniciará em:
 - `POST /api/livros` - cadastra novo livro
 - `DELETE /api/livros/{id}` - remove livro por ID
 
+#### Atualizações
+
+- `GET /api/livros/disponiveis` - lista livros disponíveis
+- `GET /api/livros/indisponiveis` - lista livros indisponíveis.
+- `GET /api/livros/{id}/eprestar` - realiza o empréstimo do livro.
+- `GET /api/livros/{id}/devolver` - realiza a devolução do livro.
+
 Exemplo de JSON para `POST /api/livros`:
 
 ```json

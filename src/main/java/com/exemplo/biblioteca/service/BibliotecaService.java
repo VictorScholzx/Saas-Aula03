@@ -2,6 +2,7 @@ package com.exemplo.biblioteca.service;
 
 import com.exemplo.biblioteca.model.Livro;
 import com.exemplo.biblioteca.repository.BibliotecaRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -34,6 +35,38 @@ public class BibliotecaService {
 
     public List<Livro> listarTodos() {
         return bibliotecaRepository.findAll();
+    }
+
+    public List<Livro> listarDisponiveis(){
+        return bibliotecaRepository.findByDisponivel(true);
+    }
+
+    public List<Livro> listarIndisponiveis(){
+        return bibliotecaRepository.findByDisponivel(false);
+    }
+
+    public String emprestarLivro(Long id) {
+        Livro livro = buscarPorId(id);
+
+        if (!livro.getDisponivel()) {
+            return "Livro não está disponível para empréstimo.";
+        }
+
+        livro.setDisponivel(false);
+        bibliotecaRepository.save(livro);
+        return "Empéstimo realizado com sucesso";
+    }
+
+    public String devolverLivro(Long id){
+        Livro livro = buscarPorId(id);
+
+        if (livro.getDisponivel()){
+            return "Devolução indisponível, livro está na biblioteca.";
+        }
+
+        livro.setDisponivel(true);
+        bibliotecaRepository.save(livro);
+        return "Livro devolvido com sucesso";
     }
 
     public Livro buscarPorId(Long id) {

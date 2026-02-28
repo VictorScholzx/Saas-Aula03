@@ -30,6 +30,26 @@ public class BibliotecaController {
         return bibliotecaService.listarTodos();
     }
 
+    @GetMapping("/disponiveis")
+    public List<Livro> listarDisponiveis(){
+        return bibliotecaService.listarDisponiveis();
+    }
+
+    @GetMapping("/indisponiveis")
+    public List<Livro> listarIndisponiveis(){
+        return bibliotecaService.listarIndisponiveis();
+    }
+
+    @GetMapping("/{id}/emprestar")
+    public String emprestar(@PathVariable Long id){
+        return bibliotecaService.emprestarLivro(id);
+    }
+
+    @GetMapping("/{id}/devolver")
+    public String devolver(@PathVariable Long id){
+        return bibliotecaService.devolverLivro(id);
+    }
+
     @GetMapping("/{id}")
     public Livro buscarPorId(@PathVariable Long id) {
         return bibliotecaService.buscarPorId(id);
